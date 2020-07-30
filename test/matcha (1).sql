@@ -38,7 +38,7 @@ CREATE TABLE `locations` (
 --
 
 INSERT INTO `locations` (`id`, `address`) VALUES
-(1, '31,27th avenue elsies river'),
+
 (4, 'africa');
 
 -- --------------------------------------------------------
