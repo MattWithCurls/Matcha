@@ -36,7 +36,8 @@
             header('Location: register.php');
             exit;
         }
-
+        
+        $db->query('USE `matcha`;');
         $statement = $db->prepare('UPDATE users SET status = :status WHERE email = :email');
         $result = $statement->execute([':status' => 1, ':email' => $email]);
 
