@@ -80,7 +80,7 @@ if(isset($_SESSION['user_name']))
         </button>
         <a class="dropdown-item" href="#">Who Liked Me</a>
         <!-- <a class="dropdown-item" href="#">Edit Profile</a> -->
-        <a class="dropdown-item" href="#">Log Out</a>
+        <a class="dropdown-item" href="logout.php">Log Out</a>
       </div>
     </div>
 </div>
