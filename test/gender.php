@@ -26,7 +26,7 @@
                 $count = $statement->rowCount();
                 if($count > 0)
                 {
-                    header('userimg.php');
+                    header('createprofile1.php');
                 }
                 else
                 {

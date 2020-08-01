@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if ($_SESSION[username] && !empty($_SESSION[username]));
+if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
 
 ?>
 <!DOCTYPE html>
@@ -49,13 +49,13 @@ if ($_SESSION[username] && !empty($_SESSION[username]));
           </button>
           <a class="dropdown-item" href="#">Who Liked Me</a>
           <!-- <a class="dropdown-item" href="#">Edit Profile</a> -->
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="logout.php">Log Out</a>
         </div>
       </div>
   </div>
 
   <a href="createprofile1.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">About Me</a>
-  <a href="userimg.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">AddPicture</a>
+  <a href="imgupload.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">AddPicture</a>
   <a href="userlocation.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Enter your address</a>
   <form action="gender.php" method="post" >
     <h1>Gender</h1>
@@ -100,14 +100,49 @@ if ($_SESSION[username] && !empty($_SESSION[username]));
     <div class="form-group col-md-6">
       <label for="exampleFormControlSelect1">Country</label>
       <select class="form-control" id="exampleFormControlSelect1" name="country">
-        <option>South Africa</option>
-        <option>Germany</option>
-        <option>Russia</option>
-        <option>Nigeria</option>
-        <option>USA</option>
-        <option>Canada</option>
-        <option>Sweden</option>
-        <option>Serbia</option>
+      <option >Select Country</option>
+              <option> Afghanistan</option>
+              <option> Åland</option>
+              <option> Albania</option>
+              <option>Algeria</option>
+              <option>American Samoa</option>
+              <option> Andorra</option>
+              <option> Angola</option>
+              <option> Anguilla</option>
+              <option> Antarctica</option>
+              <option> Antigua and Barbuda</option>
+              <option> Argentina</option>
+              <option> Armenia</option>
+              <option> Aruba</option>
+              <option> Australia</option>
+              <option>  Austria</option>
+              <option> Azerbaijan</option>
+              <option> Bahamas</option>
+              <option> Bahrain</option>
+              <option>Bangladesh</option>
+              <option>  Barbados</option>
+              <option> Belarus</option>
+              <option> Belgium</option>
+              <option>Belize</option>
+              <option>Tuvalu</option>
+              <option> U.S. Minor Outlying Islands</option>
+              <option> U.S. Virgin Islands</option>
+              <option> Uganda</option>
+              <option> Ukraine</option>
+              <option> United Arab Emirates</option>
+              <option> United Kingdom</option>
+              <option> United States</option>
+              <option> Uruguay</option>
+              <option> Uzbekistan</option>
+              <option> Vanuatu</option>
+              <option> Vatican City</option>
+              <option> Venezuela</option>
+              <option> Vietnam</option>
+              <option> Wallis and Futuna</option>
+              <option> Western Sahara</option>
+              <option> Yemen</option>
+              <option> Zambia</option>
+              <option>  Zimbabwe</option>
       </select>
     </div>
 

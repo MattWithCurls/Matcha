@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <html>
 
 <head>
@@ -53,7 +59,7 @@
           </button>
           <a class="dropdown-item" href="#">Who Liked Me</a>
            <a class="dropdown-item" href="edituser.php">Edit Profile</a> 
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="logout.php">Log Out</a>
         </div>
       </div>
   </div>
@@ -71,7 +77,7 @@
         <form action="" method="POST">
             <input type="text" name="firstname" placeholder="first name" />
             <input type="text" name="lastname" placeholder="last name" />
-            <input type="text" name="user_name" placeholder="username" />
+            <input type="text" name="user_name" value =" <?php echo $_SESSION['user_name'];?>"placeholder="username" />
             <input type="text" name="email" placeholder="email" />
 
             <input type="submit" name="update" value="save changes"/>
@@ -86,7 +92,8 @@
 <?php
 
 session_start();
-if ($_SESSION[user_name] && !empty($_SESSION[user_name]));
+$username = $_SESSION['user_name'];
+if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
 
 $connection = mysqli_connect("localhost","root","123456");
 $db = mysqli_select_db($connection,'matcha');
@@ -94,7 +101,7 @@ $db = mysqli_select_db($connection,'matcha');
 if(isset($_POST['update'])){
     $firstname = $_POST['firstname'];
 
-    $query = "UPDATE `users` SET firstname='$_POST[firstname]',lastname='$_POST[lastname]',email='$_POST[email]',user_name='$_POST[user_name]' ";
+    $query = "UPDATE `users` SET firstname='$_POST[firstname]',lastname='$_POST[lastname]',email='$_POST[email]',user_name='$_POST[user_name]' WHERE user_name = '$username'";
     $query_run = mysqli_query($connection,$query);
 
     if($query_run)

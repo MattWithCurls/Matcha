@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION[user_name] && !empty($_SESSION[user_name]));
+if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
 
 ?>
 

@@ -3,19 +3,19 @@
     include_once('config/database.php');
     session_start();
 
-    if(empty($_GET[token]) || empty($_GET['email'])) {
+    if(empty($_GET['token']) || empty($_GET['email'])) {
         header('Location: register.php');
     }
 
-    if (empty($_SESSION[token])){
+    if (empty($_SESSION['token'])){
         $_SESSION['messages'][] = 'Token has expired';
         header('Location: register.php');
     }
 
-    $token = $_GET[token];
-    $email = $_GET[email];
+    $token = $_GET['token'];
+    $email = $_GET['email'];
 
-    if($_SESSION[token] === $token) {
+    if($_SESSION['token'] === $token) {
 
         // try {
         //     $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -44,7 +44,7 @@
         echo "You've confirmed your registration<br/>";
         echo "<a href='login.php'>Login</a>";
 
-        unset($_SESSION[token]);
+        unset($_SESSION['token']);
     }else{
         $_SESSION['messages'][] = 'Token has expired';
         header('Location: register.php');

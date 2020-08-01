@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -44,14 +43,14 @@
           </button>
           <a class="dropdown-item" href="#">Who Liked Me</a>
           <a class="dropdown-item" href="#">Edit Profile</a>
-          <a class="dropdown-item" href="#">Log Out</a>
+          <a class="dropdown-item" href="logout.php">Log Out</a>
         </div>
       </div>
   </div>
 
   <a href="editaboutme.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">About Me</a>
   <a href="edituser.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Parameters</a>
-  <a href="userlocation.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Change Location</a>
+  <a href="locationupdate.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Change Location</a>
 
   <form action="" method="POST" >
     <h1>Gender</h1>
@@ -96,14 +95,49 @@
     <div class="form-group col-md-6">
       <label for="exampleFormControlSelect1">Country</label>
       <select class="form-control" id="exampleFormControlSelect1" name="country">
-        <option>South Africa</option>
-        <option>Germany</option>
-        <option>Russia</option>
-        <option>Nigeria</option>
-        <option>USA</option>
-        <option>Canada</option>
-        <option>Sweden</option>
-        <option>Serbia</option>
+        <option >Select Country</option>
+              <option> Afghanistan</option>
+              <option> Åland</option>
+              <option> Albania</option>
+              <option>Algeria</option>
+              <option>American Samoa</option>
+              <option> Andorra</option>
+              <option> Angola</option>
+              <option> Anguilla</option>
+              <option> Antarctica</option>
+              <option> Antigua and Barbuda</option>
+              <option> Argentina</option>
+              <option> Armenia</option>
+              <option> Aruba</option>
+              <option> Australia</option>
+              <option>  Austria</option>
+              <option> Azerbaijan</option>
+              <option> Bahamas</option>
+              <option> Bahrain</option>
+              <option>Bangladesh</option>
+              <option>  Barbados</option>
+              <option> Belarus</option>
+              <option> Belgium</option>
+              <option>Belize</option>
+              <option>Tuvalu</option>
+              <option> U.S. Minor Outlying Islands</option>
+              <option> U.S. Virgin Islands</option>
+              <option> Uganda</option>
+              <option> Ukraine</option>
+              <option> United Arab Emirates</option>
+              <option> United Kingdom</option>
+              <option> United States</option>
+              <option> Uruguay</option>
+              <option> Uzbekistan</option>
+              <option> Vanuatu</option>
+              <option> Vatican City</option>
+              <option> Venezuela</option>
+              <option> Vietnam</option>
+              <option> Wallis and Futuna</option>
+              <option> Western Sahara</option>
+              <option> Yemen</option>
+              <option> Zambia</option>
+              <option>  Zimbabwe</option>
       </select>
     </div>
 
@@ -171,12 +205,13 @@
     <button type="button" onclick="showPosition();">Show My Position on Google Map</button>
     <div id="embedMap">
         <!--Google map will be embedded here-->
-    </div> -->
+    </div> 
 
 
 <?php
 session_start();
- if ($_SESSION[user_name] && !empty($_SESSION[user_name]));
+$username = $_SESSION['user_name'];
+ if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
 
 $connection = mysqli_connect("localhost","root","123456");
 $db = mysqli_select_db($connection,'matcha');
@@ -184,7 +219,7 @@ $db = mysqli_select_db($connection,'matcha');
 if(isset($_POST['submit'])){
     $gender = $_POST['gender'];
 
-    $query = "UPDATE `userdetails` SET gender='$_POST[gender]',preferences='$_POST[preferences]',country='$_POST[country]',age='$_POST[age]',interests='$_POST[interests]',bio='$_POST[bio]' ";
+    $query = "UPDATE `userdetails` INNER JOIN  users ON userdetails.user_det_id = users.user_id SET gender='$_POST[gender]',preferences='$_POST[preferences]',country='$_POST[country]',age='$_POST[age]',interests='$_POST[interests]',bio='$_POST[bio]' WHERE user_name = '$username'  ";
     $query_run = mysqli_query($connection,$query);
 
     if($query_run)
@@ -193,3 +228,4 @@ if(isset($_POST['submit'])){
     }
 }
 ?>
+

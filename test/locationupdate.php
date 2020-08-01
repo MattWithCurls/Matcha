@@ -1,27 +1,25 @@
 <?php
 
 session_start();
- if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
+$username = $_SESSION['user_name'];
+if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
 
-$connection = mysqli_connect("localhost","root","123456");
-$db = mysqli_select_db($connection,'matcha');
 
-if(isset($_POST['submit_address'])){
-    $address = $_POST['address'];
-
-    $query = "UPDATE `locations` SET ='$_POST[address]' ";
-    $query_run = mysqli_query($connection,$query);
-
-    if($query_run)
-    {
-        echo'succes';
-    }
-}
-   
-        $address = $_POST["address"];
-        $address = str_replace(" ", "+", $address);
-        ?>
-        
+    $connection = mysqli_connect("localhost","root","123456");
+  $db = mysqli_select_db($connection,'matcha');
+        if (isset($_POST["submit_address"]))
+        {
+            $query = "UPDATE `locations` INNER JOIN users ON locations.id = users.user_id SET address='$_POST[address]' WHERE user_name ='$username' ";
+            $query_run = mysqli_query($connection,$query);
+ 
+            $address = $_POST["address"];
+            $address = str_replace(" ", "+", $address);
+            if($query_run)
+            {
+                echo'succes';
+            }
+        }
+    ?>
 
 <!DOCTYPE html>
 <html>
@@ -59,7 +57,6 @@ if(isset($_POST['submit_address'])){
       </button>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Visits</a>
-        <a class="dropdown-item" href="chat.php">Chat</a>
         <button type="button" class="btn btn-primary">
           Notifications <span class="badge badge-light">4</span>
         </button>
@@ -74,7 +71,7 @@ if(isset($_POST['submit_address'])){
 </div>
 
 
-<form method="POST" >
+<form action ="" method="POST">
     <p>
         <input type="text" name="address" placeholder="Enter address">
     </p>
