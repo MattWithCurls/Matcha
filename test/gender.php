@@ -9,6 +9,7 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if(isset($_POST["submit"]) )
         {
+           
 
            
             $query = "INSERT INTO userdetails (gender,preferences,age,bio,interests,country) VALUES (:gender,:preferences,:age,:bio,:interests,:country)";
@@ -20,7 +21,7 @@
                     'preferences' => $_POST["preferences"],
                     'age' => $_POST["age"],
                     'bio' => $_POST["bio"],
-                    'interests' => $_POST["interests"]
+                    'interests' => $_POST["interests"],
                 )
                 );
                 $count = $statement->rowCount();

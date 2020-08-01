@@ -1,7 +1,48 @@
+<?php
+
+session_start();
+if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
+
+    $msg = "";
+    $css_class = ""; 
+
+    $conn = mysqli_connect('localhost','root','123456','matcha');
+
+    if (isset($_POST['save-user'])){
+        $bio = $_POST['bio'];
+        $gender = $_POST['gender'];
+        $preferences = $_POST['preferences'];
+        $age = $_POST['age'];
+        $country = $_POST['country'];
+        $interests = $_POST['interests'];
+
+        $profileImageName = time() . '_' . $_FILES['profileImage']['name'];
+
+        $target = 'images/' . $profileImageName;
+
+        if(move_uploaded_file($_FILES['profileImage']['tmp_name'], $target)){
+            $sql = "INSERT INTO test (bio,gender,preferences,age,country,interests,profile_image) VALUES ('$bio','$gender','$preferences','$age','$country','$interests','$profileImageName')";
+            if(mysqli_query($conn,$sql)){
+                $msg = "Image uploaded";
+                $css_class = "alert-success";
+            }else{
+                $msg = "Database error:Failed to save user";
+                $css_class = "alert-danger";
+            }
+        }else{
+            $msg = "Failed to upload";
+            $css_class = "alert-danger";
+        }
+
+
+    }
+?>
+
 <!DOCTYPE html>
 <html>
-
 <head>
+    <title>Insert Image in MySql using PHP</title>
+    
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -16,12 +57,11 @@
     crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="css/form.css">
-</head>
 
+</head>
 <body>
 
-
-  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
   <h5> <a class="my-0 mr-md-auto font-weight-normal" href="dashboard.php">Matcha</h5>
     <nav class="my-2 my-md-0 mr-md-3">
       <a class="p-2 text-dark" href="#">Features</a>
@@ -42,18 +82,19 @@
             Messages <span class="badge badge-light">4</span>
           </button>
           <a class="dropdown-item" href="#">Who Liked Me</a>
-          <a class="dropdown-item" href="#">Edit Profile</a>
+          <!-- <a class="dropdown-item" href="#">Edit Profile</a> -->
           <a class="dropdown-item" href="logout.php">Log Out</a>
         </div>
       </div>
   </div>
 
-  <a href="editaboutme.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">About Me</a>
-  <a href="edituser.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Parameters</a>
-  <a href="locationupdate.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Change Location</a>
+  <a href="example.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">About Me</a>
+  <!-- <a href="imgupload.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">AddPicture</a> -->
+  <a href="userlocation.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Enter your address</a>
 
-  <form action="" method="POST" >
-    <h1>Gender</h1>
+<form action="" method="post" enctype="multipart/form-data">
+
+<h1>Gender</h1>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="Male" name="gender">
       <label class="form-check-label" for="inlineCheckbox1">Male</label>
@@ -95,7 +136,7 @@
     <div class="form-group col-md-6">
       <label for="exampleFormControlSelect1">Country</label>
       <select class="form-control" id="exampleFormControlSelect1" name="country">
-        <option >Select Country</option>
+      <option >Select Country</option>
               <option> Afghanistan</option>
               <option> Åland</option>
               <option> Albania</option>
@@ -171,6 +212,7 @@
       </select>
     </div>
 
+
     <div class="form-group col-md-6">
       <label for="exampleFormControlTextarea1">About Me</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="bio"></textarea>
@@ -181,56 +223,11 @@
         <label for= "profileImage">Profile Image</label>
         <input type="file" name="profileImage" id="profileImage" style="display: none;">
     </div>
-    
 
-    <input type="submit" name="submit" value="save changes" class="btn btn-info" />
+    <div class="form-group">
+        <button type="submit" name="save-user" class="btn btn-primary btn-block">Save user</div>
+    </div>
+</form>
 
-  </form>
 </body>
 </html>
-
-
-
-<!-- <script>
-    function showPosition() {
-        navigator.geolocation.getCurrentPosition(showMap);
-    }
-    
-    function showMap(position) {
-        // Get location data
-        var latlong = position.coords.latitude + "," + position.coords.longitude;
-        
-        // Set Google map source url
-        var mapLink = "https://maps.googleapis.com/maps/api/staticmap?center="+latlong+"&zoom=16&size=400x300&output=embed";
-        
-        // Create and insert Google map
-        document.getElementById("embedMap").innerHTML = "<img alt='Map Holder' src='"+ mapLink +"'>";
-    }
-</script>
-
-    <button type="button" onclick="showPosition();">Show My Position on Google Map</button>
-    <div id="embedMap">
-        <!--Google map will be embedded here-->
-    </div> 
-
-
-<?php
-session_start();
-$username = $_SESSION['user_name'];
- if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
-
-$connection = mysqli_connect("localhost","root","123456");
-$db = mysqli_select_db($connection,'matcha');
-
-if(isset($_POST['submit'])){
-    $gender = $_POST['gender'];
-
-    $query = "UPDATE `test` INNER JOIN  users ON test.id = users.user_id SET gender='$_POST[gender]',preferences='$_POST[preferences]',country='$_POST[country]',age='$_POST[age]',interests='$_POST[interests]',bio='$_POST[bio]' WHERE user_name = '$username'  ";
-    $query_run = mysqli_query($connection,$query);
-
-    if($query_run)
-    {
-        echo'succes';
-    }
-}
-?>

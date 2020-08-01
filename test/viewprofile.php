@@ -55,7 +55,7 @@ if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
                 $username = $_GET['user_name'];
                 $db = new PDO("mysql:host=localhost;dbname=matcha", "root", "123456");
                 
-               $query = "SELECT * FROM users INNER JOIN  userdetails ON users.user_id = userdetails.user_det_id WHERE user_name='$username'";
+               $query = "SELECT * FROM users INNER JOIN  test ON users.user_id = test.id WHERE user_name='$username'";
                
                $result = $db->query($query);
                 while($row = $result->fetch (PDO::FETCH_ASSOC)){
@@ -73,7 +73,7 @@ if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
                     $lastlogin = $row['loginTime'];
                     $username = $row['user_name'];
                     $user_id = $row['user_id'];
-                    $image = $row['userprofilepic'];
+                    $image = $row['profile_image'];
 
                 }
                 // $result->closeCursor();
@@ -94,7 +94,7 @@ if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
 
                 <h2><?php echo  $firstname;?> <?php echo $lastname;?> s profile</h2><br/>
                     <table>
-                        <tr><td>Picture:</td><td><?php echo "<td><img src='data:image/jpg;base64,".base64_encode($image['userprofilepic'])."'/></td>";;?></td></tr>
+                        <tr><td>Picture:</td><td><img src="images/<?php echo $image;?>"/></td></tr>
                       
                         <tr><td>Firstname:</td><td><?php echo $firstname;?></td></tr>
                         
@@ -115,6 +115,16 @@ if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
                         <tr><td>Preferences:</td><td><?php echo $preferences;?></td></tr>
                         
                         <tr><td>Last Activity:</td><td><?php echo $lastlogin;?></td></tr>
+
+                        <tr><td>viewed:</td><td><?php  session_start(); 
+                        if(isset($_SESSION['views'])) 
+                            $_SESSION['views'] = $_SESSION['views']+1; 
+                        else
+                            $_SESSION['views']=1; 
+                            echo "views = ".$_SESSION['user_name'];
+                            echo"views = ".$_SESSION['views']; ?></td></tr>
+
+
                         
                         <tr><td>Rate User:</td><td><div align="center" style="background: #ffffff ; padding: 50px;color:white;">
                                 <i class="fa fa-star fa-2x" data-index="0"></i>
