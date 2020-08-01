@@ -115,6 +115,14 @@ if ($_SESSION['user_name'] && !empty($_SESSION['user_name']));
                         <tr><td>Preferences:</td><td><?php echo $preferences;?></td></tr>
                         
                         <tr><td>Last Activity:</td><td><?php echo $lastlogin;?></td></tr>
+			    
+			    <tr><td>viewed:</td><td><?php  session_start(); 
+                        if(isset($_SESSION['views'])) 
+                            $_SESSION['views'] = $_SESSION['views']+1; 
+                        else
+                            $_SESSION['views']=1; 
+        
+                            echo"views = ".$_SESSION['views']; ?> </td></tr>
                         
                         <tr><td>Rate User:</td><td><div align="center" style="background: #ffffff ; padding: 50px;color:white;">
                                 <i class="fa fa-star fa-2x" data-index="0"></i>
